@@ -67,7 +67,7 @@ MIXING_RATIO_FIXED = None
 
 MIN_PRESSURE = 50     # mb = hPa
 MAX_PRESSURE = 1000   # mb = hPa
-MIN_THETA = 0         # degC
+MIN_THETA = -20         # degC
 MAX_THETA = 250       # degC
 MIN_WET_ADIABAT = 1   # degC
 MAX_WET_ADIABAT = 60  # degC
@@ -591,6 +591,7 @@ class Tephigram(object):
         axis.major_ticklabels.set_va('bottom')
         axis.major_ticklabels.set_color('grey')
         axis.major_ticklabels.set_visible(False)  # turned-off
+        axis.set_visible(False)
 
         # Dry adiabats: lines of constant potential temperature (degC).
         axis = self.axes.axis['theta']
@@ -600,8 +601,9 @@ class Tephigram(object):
         axis.major_ticklabels.set_va('bottom')
         axis.major_ticklabels.set_color('grey')
         axis.major_ticklabels.set_visible(False)  # turned-off
-        axis.line.set_linewidth(3)
-        axis.line.set_linestyle('--')
+        axis.set_visible(False)
+        #axis.line.set_linewidth(3)
+        #axis.line.set_linestyle('--')
 
         # Lock down the aspect ratio.
         self.axes.set_aspect(1.)
@@ -655,8 +657,8 @@ class Tephigram(object):
 
             if (bottom_pressure - top_pressure) < 0:
                 raise ValueError('Invalid anchor pressure range')
-            if (bottom_temp - top_temp) < 0:
-                raise ValueError('Invalid anchor temperature range')
+#            if (bottom_temp - top_temp) < 0:
+#                raise ValueError('Invalid anchor temperature range')
 
             self._anchor = isopleths.Profile(anchor, self.axes)
             self._anchor.plot(visible=False)
